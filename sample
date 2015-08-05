@@ -1,0 +1,67 @@
+server {
+  listen 80;
+  server_name creativesdk.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:5656;
+  }
+}
+server {
+  listen 80;
+  server_name GIT.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:4545;
+  }
+}
+server {
+  listen 80;
+  server_name git-test.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:5656;
+  }
+}
+
+server {
+  listen 80;
+  server_name fun.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:1212;
+  }
+}
+
+server {
+  listen 80;
+  server_name yay.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:2323;
+  }
+}
+
+server {
+  listen 80;
+  server_name woah.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:9898;
+  }
+}
+
+server {
+  listen 80;
+  server_name wordpress.ashryanbeats.com;
+  location / {
+    proxy_set_header   X-Real-IP ;
+    proxy_set_header   Host      ;
+    proxy_pass         http://127.0.0.1:6767;
+  }
+}
