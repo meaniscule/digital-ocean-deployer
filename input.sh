@@ -46,4 +46,14 @@ mkdir -pv $SUBDOMAIN/live
 mkdir -pv $SUBDOMAIN/repo/site.git
 cd $SUBDOMAIN/repo/site.git && git init --bare
 
+cat > post-receive << EOM
+#!/bin/sh
+git —work-tree=/home/$(logname)/$SUBDOMAIN/live —git-dir=/home/$(logname)/$SUBDOMAIN/repo/site.git checkout -f
+cd ~/$SUBDOMAIN/live
+npm install
+gulp build
+pm2 restart $SUBDOMAIN
+EOM
 
+echo "Git post-receive hook created:"
+echo "$(<post-receive)"
