@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo Please enter your subdomain
+echo Please enter your subdomain and domain, e.g. dog.pet.com
 read SUBDOMAIN
 echo "Ok, subdomain is $SUBDOMAIN."
 
