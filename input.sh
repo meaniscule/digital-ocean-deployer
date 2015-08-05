@@ -27,5 +27,19 @@ echo "Your NGINX server was added:"
 echo "$(<default)"
 
 nginx -s reload
-echo "NGINX has been reloaded."
+if [ $? != 0 ]
+then
+	echo "NGINX couldn't be reloaded. Check your permissions or try executing this script with sudo."
+	exit 1
+else
+	echo "NGINX has been reloaded."
+fi
 
+cd ~
+if [ -d $SUBDOMAIN ]
+then
+	echo "The folder already exits. Exiting to prevent overwrite. Please try again."
+	exit 1
+else
+	mkdir $SUBDOMAIN
+fi
