@@ -40,6 +40,10 @@ if [ -d $SUBDOMAIN ]
 then
 	echo "The folder already exits. Exiting to prevent overwrite. Please try again."
 	exit 1
-else
-	mkdir $SUBDOMAIN
 fi
+
+mkdir -pv $SUBDOMAIN/live
+mkdir -pv $SUBDOMAIN/repo/site.git
+cd $SUBDOMAIN/repo/site.git && git init --bare
+
+
