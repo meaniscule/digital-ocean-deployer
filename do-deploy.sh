@@ -93,17 +93,19 @@ fi
 EOM
 
 chmod a+x post-receive
-cd ../..
-chown -R $(logname):$(logname) site.git
-
-IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
 echo "Git post-receive hook created:"
 echo "$(<post-receive)"
 echo ""
 
+cd ~
+chown -R $(logname):$(logname) $APPDIR
+
 echo "Your server is all set up!"
 echo ""
+
+
+IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
 echo "Now go to your local repo and enter the following lines:"
 echo "git remote add live ssh://$(logname)@$IPADDR/home/$(logname)/$APPDIR/repo/site.git"
