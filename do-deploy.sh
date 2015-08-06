@@ -34,6 +34,7 @@ cd ~/../../etc/nginx/sites-available/
 
 sudo cat >> default << EOM
 
+
 server {
   listen 80;
   server_name "$SUBDOMAIN.$DOMAIN";
@@ -88,6 +89,8 @@ else
         pm2 restart $APPDIR
 fi
 EOM
+
+chmod +x post-receive
 
 IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
