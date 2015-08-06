@@ -83,5 +83,15 @@ else
 fi
 EOM
 
+IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
+
 echo "Git post-receive hook created:"
 echo "$(<post-receive)"
+echo ""
+
+echo "Your server is all set up!"
+echo ""
+
+echo "Now go to your local repo and enter the following lines:"
+echo "git remote add live ssh://$(logname)@$IPADDR/home/$(logname)/$SUBDOMAIN/repo/site.git"
+echo "git push live master"
