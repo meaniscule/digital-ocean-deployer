@@ -60,32 +60,32 @@ else
 fi
 
 cd ~
-if [ -d $SUBDOMAIN ]
+if [ -d $APPDIR ]
 then
 	echo "The folder already exits. Exiting to prevent overwrite. Please try again."
 	exit 1
 fi
 
-mkdir -pv $SUBDOMAIN/live
-mkdir -pv $SUBDOMAIN/repo/site.git
+mkdir -pv $APPDIR/live
+mkdir -pv $APPDIR/repo/site.git
 echo ""
-cd $SUBDOMAIN/repo/site.git && git init --bare
+cd $APPDIR/repo/site.git && git init --bare
 echo ""
 
 cd hooks
 cat > post-receive << EOM
 #!/bin/sh
-git --work-tree=/home/$(logname)/$SUBDOMAIN/live --git-dir=/home/$(logname)/$SUBDOMAIN/repo/site.git checkout -f
-cd ~/$SUBDOMAIN/live
+git --work-tree=/home/$(logname)/$APPDIR/live --git-dir=/home/$(logname)/$APPDIR/repo/site.git checkout -f
+cd ~/$APPDIR/live
 npm install
 gulp build
 
-pm2 describe $SUBDOMAIN
+pm2 describe $APPDIR
 if [ \$? != 0 ]
 then
-        pm2 start server/start.js -i 0 --name $SUBDOMAIN
+        pm2 start server/start.js -i 0 --name $APPDIR
 else
-        pm2 restart $SUBDOMAIN
+        pm2 restart $APPDIR
 fi
 EOM
 
