@@ -1,6 +1,6 @@
 # Subdomain site
 
-This script aims to help site creation on your server via ssh a bit easier.
+This script aims to help you deploy your Meaniscule site Digital Ocean with ease and win.
 
 ## Requirements
 - Ubuntu 14.04 or higher (might work on older versions, but it hasn't be tested)
@@ -11,13 +11,14 @@ You will also probably need `sudo` privileges.
 
 ## Assumptions
 The script assumes that:
-- you are running the script from somewhere within `/home/user`
+- you are running the script from somewhere within `/home/user` (not `root`)
+- you want to deploy the site within your `/home/user` directory
 - your `nginx` file is titled `default` and exists at `/root/etc/nginx/sites-available`
  
 ## Installation and execution
 Install the script on your server. One way to do this is to `git clone` it into your user directory, for example in `/home/user/bin`.
 
-To make the script executable, `cd` down in to the directory containin the script and enter:
+To make the script executable, `cd` down in to the directory containing the script and enter:
 ```
 chmod +x subdomain-site.sh
 ```
@@ -26,22 +27,23 @@ Now you can run the script by typing in:
 ```
 sudo ./subdomain-site.sh
 ```
-
 Because the script modifies the nginx file, `sudo` will be required in most cases.
 
 ## User input
-The script will ask the user for 3 things:
+The script will ask the user for:
 - subdomain
 - domain
 - port
+- app directory name
 
 For example:
 ```
 dog
 pet.com
 4545
+dog-site
 ```
-This makes a new nginx server with a URL of `dog.pet.com` listening on port `4545`.
+This makes a new nginx server with a URL of `dog.pet.com` listening on port `4545` and sets up your file tree in `/home/user/dog-site`.
 
 ## Results
 The script does the following:
@@ -60,7 +62,7 @@ server {
 
 - makes a new tree 
 ```
-/home/ash/dog
+/home/ash/dog-site
 ├── live
 └── repo
     └── site.git
@@ -94,27 +96,25 @@ server {
 - tells you how to set this repo as a remote for your local repo
 
 ## The post-receive hook
-Here is the default `post-receive` hook that this script will make:
+Here is the default `post-receive` hook that this script will make (using our `dog-site` example):
 ```
 #!/bin/sh
-git --work-tree=/home/$(logname)/$SUBDOMAIN/live --git-dir=/home/$(logname)/$SUBDOMAIN/repo/site.git checkout -f
-cd ~/$SUBDOMAIN/live
+git --work-tree=/home/ash/dog-site/live --git-dir=/home/ash/dog-site/repo/site.git checkout -f
+cd ~/dog-site/live
 npm install
 gulp build
 
-pm2 describe $SUBDOMAIN
+pm2 describe dog-site
 if [ \$? != 0 ]
 then
-        pm2 start server/start.js -i 0 --name $SUBDOMAIN
+        pm2 start server/start.js -i 0 --name dog-site
 else
-        pm2 restart $SUBDOMAIN
+        pm2 restart dog-site
 fi
 ```
 
-Note that anything with a `$` is actually going to be replaced with a usable value.
-
 So, after running `git push live master` from your local repo, the `post-receive` script will:
 - configure your git work tree and repo
-- install npm modules
-- run a gulp build process
-- either restart pm2 for the site or create a pm2 process for the site if one doesn't already exist
+- install npm modules (if there are new ones to install)
+- run a gulp build process then exit gulp
+- either restart the pm2 process for the site or create a pm2 process for the site if one doesn't already exist
