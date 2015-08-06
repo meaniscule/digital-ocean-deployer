@@ -74,6 +74,8 @@ cd $APPDIR/repo/site.git && git init --bare
 echo ""
 
 cd hooks
+touch post-receive
+
 cat > post-receive << EOM
 #!/bin/sh
 git --work-tree=/home/$(logname)/$APPDIR/live --git-dir=/home/$(logname)/$APPDIR/repo/site.git checkout -f
@@ -90,7 +92,9 @@ else
 fi
 EOM
 
-chmod +x post-receive
+chmod a+x post-receive
+cd ../..
+chown -R $(logname):$(logname) site.git
 
 IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
