@@ -67,6 +67,7 @@ echo ""
 cd $SUBDOMAIN/repo/site.git && git init --bare
 echo ""
 
+cd hooks
 cat > post-receive << EOM
 #!/bin/sh
 git --work-tree=/home/$(logname)/$SUBDOMAIN/live --git-dir=/home/$(logname)/$SUBDOMAIN/repo/site.git checkout -f
