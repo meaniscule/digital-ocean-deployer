@@ -60,7 +60,7 @@ server {
 }
 ```
 
-- makes a new tree 
+- makes a new tree and initializes a `--bare` git repo 
 ```
 /home/ash/dog-site
 ├── live
@@ -71,16 +71,7 @@ server {
         ├── description
         ├── HEAD
         ├── hooks
-        │   ├── applypatch-msg.sample
-        │   ├── commit-msg.sample
-        │   ├── post-receive
-        │   ├── post-update.sample
-        │   ├── pre-applypatch.sample
-        │   ├── pre-commit.sample
-        │   ├── prepare-commit-msg.sample
-        │   ├── pre-push.sample
-        │   ├── pre-rebase.sample
-        │   └── update.sample
+        │   └── post-receive
         ├── info
         │   └── exclude
         ├── objects
