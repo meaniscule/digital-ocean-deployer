@@ -5,7 +5,7 @@ echo "Example:"
 echo "1. dog"
 echo "2. pet.com"
 echo "Makes dog.pet.com"
-echo "Lastly, you'll provide the server port to listen on."
+echo "Lastly, you'll provide the server port to listen on and a name for your app."
 echo ""
 echo "Let's make magic happen!"
 echo ""
@@ -23,6 +23,11 @@ echo ""
 echo "Please enter your port"
 read PORT
 echo "Ok, port $PORT on $SUBDOMAIN for user $USERNAME."
+echo ""
+
+echo "What would you like to name the app's directory?"
+read APPDIR
+echo "We'll put the app in $APPDIR"
 echo ""
 
 cd ~/../../etc/nginx/sites-available/
