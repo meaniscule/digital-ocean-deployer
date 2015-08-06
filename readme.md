@@ -1,9 +1,9 @@
 # Subdomain site
 
-This script aims to help you deploy your Meaniscule site Digital Ocean with ease and win.
+This script aims to help you deploy your [Meaniscule](https://github.com/meaniscule/meaniscule) site to Digital Ocean with ease and win.
 
 ## Requirements
-- Ubuntu 14.04 or higher (might work on older versions, but it hasn't be tested)
+- Ubuntu 14.04 or higher (might work on older versions, but it hasn't been tested)
 - [nginx](http://nginx.org/en/)
 - [pm2](https://github.com/Unitech/pm2)
 
@@ -20,12 +20,12 @@ Install the script on your server. One way to do this is to `git clone` it into 
 
 To make the script executable, `cd` down in to the directory containing the script and enter:
 ```
-chmod +x subdomain-site.sh
+chmod +x do-deploy.sh
 ```
 
 Now you can run the script by typing in:
 ```
-sudo ./subdomain-site.sh
+sudo ./do-deploy.sh
 ```
 Because the script modifies the nginx file, `sudo` will be required in most cases.
 
