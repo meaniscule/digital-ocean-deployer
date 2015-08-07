@@ -116,4 +116,6 @@ So, after running `git push live master` from your local repo, the `post-receive
 
 ### The local remote settings
 ```
+git remote add live ssh://ash@SERVER_IP_OR_DOMAIN/home/ash/dog-site/repo/site.git
+git push live master
 ```
