@@ -22,13 +22,20 @@ echo ""
 
 echo "Please enter your port"
 read PORT
-echo "Ok, port $PORT on $SUBDOMAIN for user $USERNAME."
+echo "Ok, port $PORT on $SUBDOMAIN.$DOMAIN for user $(logname)."
 echo ""
 
 echo "What would you like to name the app's directory?"
 read APPDIR
-echo "We'll put the app in $APPDIR"
-echo ""
+if [ -d ~/$APPDIR ]
+then
+	echo "That directory already exits. Exiting to prevent overwrite. Please try again."
+	exit 1
+else
+	echo "We'll put the app in $APPDIR"
+	echo ""
+fi
+
 
 cd ~/../../etc/nginx/sites-available/
 
@@ -61,12 +68,6 @@ else
 fi
 
 cd ~
-if [ -d $APPDIR ]
-then
-	echo "The folder already exits. Exiting to prevent overwrite. Please try again."
-	exit 1
-fi
-
 mkdir -pv $APPDIR/live
 mkdir -pv $APPDIR/repo/site.git
 echo ""
