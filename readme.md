@@ -51,6 +51,11 @@ This makes a new nginx server with a URL of `dog.pet.com` listening on port `454
 ## Results
 The script does the following:
 - adds a new nginx server listening on the specified port and reloads nginx
+- makes a new tree and initializes a `--bare` git repo 
+- adds a `post-receive` hook for git
+- tells you how to set this repo as a remote for your local repo
+
+### The nginx server block
 ```
 server {
   listen 80;
@@ -63,7 +68,7 @@ server {
 }
 ```
 
-- makes a new tree and initializes a `--bare` git repo 
+### The tree
 ```
 /home/ash/dog-site
 ├── live
@@ -85,11 +90,7 @@ server {
             └── tags
 ```
 
-- adds a `post-receive` hook for git
-
-- tells you how to set this repo as a remote for your local repo
-
-## The post-receive hook
+### The post-receive hook
 Here is the default `post-receive` hook that this script will make (using our `dog-site` example):
 ```
 #!/bin/sh
@@ -112,3 +113,7 @@ So, after running `git push live master` from your local repo, the `post-receive
 - install npm modules (if there are new ones to install)
 - run a gulp build process then exit gulp
 - either restart the pm2 process for the site or create a pm2 process for the site if one doesn't already exist
+
+### The local remote settings
+```
+```
