@@ -2,7 +2,7 @@
 
 This script aims to help you deploy your [Meaniscule](https://github.com/meaniscule/meaniscule) site to Digital Ocean with ease and win.
 
-## Requiremens
+## Requirements
 Local
 - A *local* git repo containing a [Meaniscule](https://github.com/meaniscule/meaniscule) app
 
