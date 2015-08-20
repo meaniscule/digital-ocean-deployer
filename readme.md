@@ -4,11 +4,10 @@ This script aims to help you deploy your [Meaniscule](https://github.com/meanisc
 
 ## Requirement
 - Ubuntu 14.04 or higher*
+- `sudo` privileges
 - [nginx](http://nginx.org/en/)**
 - [pm2](https://github.com/Unitech/pm2)**
 - A *local* git repo containing a [Meaniscule](https://github.com/meaniscule/meaniscule) app
-
-You will also probably need `sudo` privileges.
 
 _*Might work on older versions of Ubuntu, but it hasn't been tested_
 
