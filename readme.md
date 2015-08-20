@@ -2,15 +2,17 @@
 
 This script aims to help you deploy your [Meaniscule](https://github.com/meaniscule/meaniscule) site to Digital Ocean with ease and win.
 
-## Requirements
+## Requirement
 - Ubuntu 14.04 or higher*
-- [nginx](http://nginx.org/en/)
-- [pm2](https://github.com/Unitech/pm2)
-- A local git repo containing a [Meaniscule](https://github.com/meaniscule/meaniscule) app
+- [nginx](http://nginx.org/en/)**
+- [pm2](https://github.com/Unitech/pm2)**
+- A *local* git repo containing a [Meaniscule](https://github.com/meaniscule/meaniscule) app
 
 You will also probably need `sudo` privileges.
 
 _*Might work on older versions of Ubuntu, but it hasn't been tested_
+
+_*\*The script will check to see if you have nginx and pm2 installed, and if you don't, it will optionally offer to install them for you._
 
 ## Assumptions
 The script assumes that:
