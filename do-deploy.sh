@@ -1,5 +1,65 @@
 #!/bin/bash
-echo "Hi! Let's make a new site!"
+echo "Just a moment. I'm checking dependencies..."
+echo ""
+
+dpkg -s nginx
+if [ $? != 0 ]
+then
+	echo "I need to install nginx. Is that ok? Y/n"
+	read RESPONSE
+	if [ $RESPONSE != "Y" ]
+	then
+		echo "Aww, I need nginx to work my magic."
+		exit 1
+	else
+		echo "Ok! Installing nginx..."
+		apt-get update
+		apt-get install nginx
+		if [ $? != 0 ]
+		then
+			echo "Looks like there was a problem with installing nginx."
+			exit 1
+		else
+			echo "nginx successfully installed!"
+		fi
+	fi
+else
+	echo ""
+	echo "Nice, you've already got nginx!"
+fi
+
+echo ""
+echo ""
+
+npm list -g pm2
+if [ $? != 0 ]
+then
+        echo "I need to install pm2. Is that ok? Y/n"
+        read RESPONSE
+        if [ $RESPONSE != "Y" ]
+        then
+                echo "Aww, I need pm2 to work my magic."
+                exit 1
+        else
+                echo "Ok! Installing pm2..."
+                npm install -g pm2
+                if [ $? != 0 ]
+                then
+                        echo "Looks like there was a problem with installing pm2."
+                        exit 1
+                else
+                        echo "pm2 successfully installed!"
+                fi
+        fi
+else
+        echo ""
+	echo "Nice, you've already got pm2!"
+fi
+
+echo ""
+echo ""
+
+echo "Ok! Dependencies are in order. Let's make a new site!"
 echo "The next two prompts will ask for 1) subdomain and 2) domain."
 echo "Example:"
 echo "1. dog"
