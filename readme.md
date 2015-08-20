@@ -12,7 +12,7 @@ You will also probably need `sudo` privileges.
 
 _*Might work on older versions of Ubuntu, but it hasn't been tested_
 
-_*\*The script will check to see if you have nginx and pm2 installed, and if you don't, it will optionally offer to install them for you._
+_**The script will check to see if you have nginx and pm2 installed, and if you don't, it will optionally offer to install them for you._
 
 ## Assumptions
 The script assumes that:
