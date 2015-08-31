@@ -57,6 +57,9 @@ else
 	echo "Nice, you've alread got an nginx default file!"
 fi
 
+echo ""
+echo ""
+
 npm list -g pm2
 if [ $? != 0 ]
 then
