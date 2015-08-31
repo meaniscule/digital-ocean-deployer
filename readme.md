@@ -2,6 +2,17 @@
 
 This script aims to help you deploy your [Meaniscule](https://github.com/meaniscule/meaniscule) site to Digital Ocean with ease and win.
 
+## Contents
+- [Requirements](https://github.com/meaniscule/digital-ocean-deployer/blob/master/README.md#requirements)
+- [Assumptions](https://github.com/meaniscule/digital-ocean-deployer/blob/master/README.md#assumptions)
+- [Installation and execution](https://github.com/meaniscule/digital-ocean-deployer/blob/master/README.md#installation-and-execution)
+- [User input](https://github.com/meaniscule/digital-ocean-deployer/blob/master/README.md#user-input)
+- [Results](https://github.com/meaniscule/digital-ocean-deployer/blob/master/README.md#results)
+  - The nginx server block
+  - The tree
+  - The post-receive hook
+  - The local remote settings
+
 ## Requirements
 Local
 - A *local* git repo containing a [Meaniscule](https://github.com/meaniscule/meaniscule) app
