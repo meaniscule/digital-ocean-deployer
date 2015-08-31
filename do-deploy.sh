@@ -34,10 +34,12 @@ echo ""
 cat ~/../../etc/nginx/sites-available/default
 if [ $? != 0 ]
 then
-	echo "I need to write to an nginx file that doesn't exist yet."
+	echo "I need to write to an nginx file that doesn't exist yet:"
+	echo "~/../../etc/nginx/sites-available/default"
+	echo ""
 	echo "Would you like me to make the file?"
 	read RESPONSE
-	if [ $RESPONE != "Y" ]
+	if [ $RESPONSE != "Y" ]
 	then
 		echo "Aww, to work my magic, I need the file ~/../../etc/nginx/sites-available/default to exist."
 		exit 1
@@ -54,7 +56,7 @@ then
 	fi
 else
 	echo ""
-	echo "Nice, you've alread got an nginx default file!"
+	echo "Nice, you've already got an nginx default file!"
 fi
 
 echo ""
