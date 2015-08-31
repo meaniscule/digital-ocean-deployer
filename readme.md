@@ -130,13 +130,13 @@ So, after running `git push live master` from your local repo, the `post-receive
 - either restart the pm2 process for the site or create a pm2 process for the site if one doesn't already exist
 
 ### The local remote settings
-When the Digital Ocean Deployer script is finish running, it will give you these two lines, which are meant to be used in your local repo:
+When the Digital Ocean Deployer script is finished running, it will give you these two lines, which are meant to be used in your local repo:
 ```
 git remote add live ssh://ash@SERVER_IP_OR_DOMAIN/home/ash/dog-site/repo/site.git
 git push live master
 ```
 
-The first line sets your local repo's `live` remote to point to your server repo that the script just created for you. Enter this into your local repo right away.
+The first line sets your local repo's `live` remote to point to the server's repo (the one that the script just created for you). Enter this first line into your local repo right away.
 
 The second line is what you will use any time you want to deploy to your server: `git push live master`.
 
