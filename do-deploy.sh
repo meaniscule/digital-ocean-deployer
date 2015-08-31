@@ -31,6 +31,32 @@ fi
 echo ""
 echo ""
 
+cat ~/../../etc/nginx/sites-available/default
+if [ $? != 0 ]
+then
+	echo "I need to write to an nginx file that doesn't exist yet."
+	echo "Would you like me to make the file?"
+	read RESPONSE
+	if [ $RESPONE != "Y" ]
+	then
+		echo "Aww, to work my magic, I need the file ~/../../etc/nginx/sites-available/default to exist."
+		exit 1
+	else
+		echo "Ok! Creating your nginx default file..."
+		touch ~/../../etc/nginx/sites-available/
+		if [ $? != 0 ]
+                then
+                        echo "Looks like there was a problem with creating your nginx default file."
+                        exit 1
+                else
+                        echo "Your nginx default file was successfully created!"
+                fi
+	fi
+else
+	echo ""
+	echo "Nice, you've alread got an nginx default file!"
+fi
+
 npm list -g pm2
 if [ $? != 0 ]
 then
