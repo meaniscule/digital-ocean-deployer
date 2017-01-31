@@ -156,7 +156,7 @@ echo ""
 IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
 echo "Now go to your local repo and enter the following lines:"
-echo "git remote add live ssh://$(logname)@$IPADDR/var/www/$APPDIR/repo/site.git"
+echo "git remote add live ssh://$(logname)@$IPADDR/var/www/${APPNAME}/repo/site.git"
 echo "git push live master"
 
 exit 0
