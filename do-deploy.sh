@@ -88,6 +88,7 @@ fi
 
 cd /etc/nginx/sites-available
 touch $APPNAME
+chown -R $(logname):$(logname) $APPNAME
 
 sudo cat >> $APPNAME << EOM
 server {
@@ -100,7 +101,10 @@ server {
 }
 EOM
 
-echo "Your nginx server was added:"
+cd /etc/nginx
+ln -s /etc/nginx/sites-available/"$APPNAME" /etc/nginx/sites-enabled/
+
+echo "Your nginx server was added to nginx sites-available and sites-enabled:"
 echo "$(<$APPNAME)"
 echo ""
 
