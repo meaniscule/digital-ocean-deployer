@@ -32,7 +32,7 @@ echo ""
 echo ""
 
 
-npm list -g pm2 | >/dev/null 
+npm list -g pm2
 if [ $? != 0 ]
 then
         echo "I need to install pm2. Is that ok? Y/n"
@@ -64,7 +64,7 @@ echo "Ok! Dependencies are in order. Let's make a new site!"
 echo ""
 
 
-echo "Please enter your nginx server_name"
+echo "Please enter your nginx server_name(s) [space-separated]"
 read SERVERNAME
 echo "Ok, subdomain is $SERVERNAME."
 echo ""
@@ -76,12 +76,12 @@ echo ""
 
 echo "What would you like to name the app?"
 read APPDIR
-if [ -f /etc/nginx/sites-available/$APPNAME ]
+if [ -f /etc/nginx/sites-available/"$APPNAME" ]
 then
 	echo "That app nginx file already exits. Exiting to prevent overwrite. Please try again."
 	exit 1
 else
-	echo "Creating the nginx server file for $APPNAME"
+	echo "Creating the nginx server file for ${APPNAME}"
 	echo ""
 fi
 
