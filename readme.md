@@ -29,14 +29,14 @@ _**The script will check to see if you have nginx and pm2 installed, and if you 
 
 ## Assumptions
 The script assumes that:
-- you are running the script from somewhere within `/home/user` (not `root`)
-- you want to deploy the site within your `/home/user` directory
-- your `nginx` file is titled `default` and exists at `/root/etc/nginx/sites-available`
+- you want to deploy the site within your `/var/www` directory
+- you want to add your nginx server file `/etc/nginx/sites-available`
+- you want to make a symbolic link to your nginx server file in `/etc/nginx/sites-enabled`
  
 ## Installation and execution
-Install the script on your server. One way to do this is to `git clone` it into your user directory, for example in `/home/user/bin`.
+Install the script on your server. One way to do this is to `git clone` it into your user directory.
 
-To make the script executable, `cd` down in to the directory containing the script and enter:
+To make the script executable, `cd` into the directory containing the script and enter:
 ```
 chmod +x do-deploy.sh
 ```
@@ -45,23 +45,25 @@ Now you can run the script by typing in:
 ```
 sudo ./do-deploy.sh
 ```
-Because the script modifies the nginx file, `sudo` will be required in most cases.
+
+`sudo` will be required in most cases.
+
 
 ## User input
 The script will ask the user for:
-- subdomain
-- domain
+- [nginx server_name](https://nginx.org/en/docs/http/server_names.html)
 - port
-- app directory name
+- app name (used as nginx filename and app directory name)
 
 For example:
 ```
-dog
-pet.com
+example.com www.example.com
 4545
-dog-site
+example.com
 ```
-This makes a new nginx server with a URL of `dog.pet.com` listening on port `4545` and sets up your file tree in `/home/user/dog-site`.
+
+This makes a new nginx server for `example.com` and `www.example.com` listening on port `4545`, and sets up your app's file tree in `/var/www`.
+
 
 ## Results
 The script does the following:
@@ -70,14 +72,14 @@ The script does the following:
 - adds a `post-receive` hook for git
 - tells you how to set this repo as a remote for your local repo
 
+
 ### The nginx server block
 ```
 server {
   listen 80;
-  server_name "dog.pet.com";
+  server_name example.com www.example.com;
+
   location / {
-    proxy_set_header   X-Real-IP $remote_addr;
-    proxy_set_header   Host      $http_host;
     proxy_pass         http://127.0.0.1:4545;
   }
 }
@@ -85,7 +87,7 @@ server {
 
 ### The tree
 ```
-/home/ash/dog-site
+/var/www/example.com
 ├── live
 └── repo
     └── site.git
@@ -105,34 +107,38 @@ server {
             └── tags
 ```
 
+
 ### The post-receive hook
 Here is the default `post-receive` hook that this script will make (using our `dog-site` example):
+
 ```
 #!/bin/sh
-git --work-tree=/home/ash/dog-site/live --git-dir=/home/ash/dog-site/repo/site.git checkout -f
-cd ~/dog-site/live
+git --work-tree=/var/www/example.com/live --git-dir=/var/www/example.com/repo/site.git checkout -f
+cd /var/www/example.com/live
 npm install
 gulp build
 
-pm2 describe dog-site
+pm2 describe example.com
 if [ \$? != 0 ]
 then
-        pm2 start server/start.js -i 0 --name dog-site
+        pm2 start server/start.js -i 0 --name example.com
 else
-        pm2 restart dog-site
+        pm2 restart example.com
 fi
 ```
 
-So, after running `git push live master` from your local repo, the `post-receive` script will:
+In other words, after running `git push live master` from your local repo, the `post-receive` script will:
+
 - configure your git work tree and repo
 - install npm modules (if there are new ones to install)
 - run a gulp build process then exit gulp
 - either restart the pm2 process for the site or create a pm2 process for the site if one doesn't already exist
 
+
 ### The local remote settings
 When the Digital Ocean Deployer script is finished running, it will give you these two lines, which are meant to be used in your local repo:
 ```
-git remote add live ssh://ash@SERVER_IP_OR_DOMAIN/home/ash/dog-site/repo/site.git
+git remote add live ssh://ash@SERVER_IP_OR_DOMAIN/var/www/example.com/repo/site.git
 git push live master
 ```
 
