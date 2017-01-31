@@ -92,7 +92,7 @@ touch $APPNAME
 sudo cat >> $APPNAME << EOM
 server {
 	listen 80;
-	server_name "$SERVERNAME";
+	server_name $SERVERNAME;
 
 	location / {		
 		proxy_pass http://127.0.0.1:$PORT;
@@ -100,17 +100,17 @@ server {
 }
 EOM
 
-echo "Your NGINX server was added:"
+echo "Your nginx server was added:"
 echo "$(<$APPNAME)"
 echo ""
 
 service nginx restart
 if [ $? != 0 ]
 then
-	echo "NGINX couldn't be reloaded. Check your permissions or try executing this script with sudo."
+	echo "nginx couldn't be reloaded. Check your permissions or try executing this script with sudo."
 	exit 1
 else
-	echo "NGINX has been reloaded."
+	echo "nginx has been reloaded."
 	echo ""
 fi
 
@@ -146,7 +146,7 @@ echo "Git post-receive hook created:"
 echo "$(<post-receive)"
 echo ""
 
-cd ~
+cd /var/www
 chown -R $(logname):$(logname) $APPNAME
 
 echo "Your server is all set up!"
