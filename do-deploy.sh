@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Dependency checking; nginx and pm2 are required
 echo "Just a moment. I'm checking dependencies..."
 echo ""
 
@@ -31,7 +33,6 @@ fi
 echo ""
 echo ""
 
-
 npm list -g pm2
 if [ $? != 0 ]
 then
@@ -61,10 +62,13 @@ echo ""
 echo ""
 
 echo "Ok! Dependencies are in order. Let's make a new site!"
+echo "================="
 echo ""
 
 
-echo "Please enter your nginx server_name(s) [space-separated]"
+# User input variables for setup
+echo "Please enter your nginx server_name(s)"
+echo "(Space-separated, e.g.: example.org  www.example.org.)"
 read SERVERNAME
 echo "Ok, subdomain is $SERVERNAME."
 echo ""
@@ -75,6 +79,7 @@ echo "Ok, port $PORT on $SERVERNAME."
 echo ""
 
 echo "What would you like to name the app?"
+echo "(Used for nginx server filename and git repo dirname.)"
 read APPNAME
 if [ -f /etc/nginx/sites-available/"$APPNAME" ]
 then
@@ -86,6 +91,7 @@ else
 fi
 
 
+# Set up nginx and restart
 cd /etc/nginx/sites-available
 touch $APPNAME
 chown -R $(logname):$(logname) $APPNAME
@@ -119,6 +125,8 @@ else
 	echo ""
 fi
 
+
+# Make the dir for the repo; set up git and git post-receive
 cd /var/www
 mkdir -pv $APPNAME/live
 mkdir -pv $APPNAME/repo/site.git
@@ -154,9 +162,10 @@ echo ""
 cd /var/www
 chown -R $(logname):$(logname) $APPNAME
 
+
+# Final instructions for local git setup
 echo "Your server is all set up!"
 echo ""
-
 
 IPADDR=$(ifconfig eth0 | grep "inet addr" | cut -d ':' -f 2 | cut -d ' ' -f 1)
 
