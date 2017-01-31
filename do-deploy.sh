@@ -103,6 +103,7 @@ EOM
 
 cd /etc/nginx
 ln -s /etc/nginx/sites-available/"$APPNAME" /etc/nginx/sites-enabled/
+cd /sites-available
 
 echo "Your nginx server was added to nginx sites-available and sites-enabled:"
 echo "$(<$APPNAME)"
