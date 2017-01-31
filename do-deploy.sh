@@ -2,7 +2,7 @@
 echo "Just a moment. I'm checking dependencies..."
 echo ""
 
-dpkg -s nginx
+dpkg -l nginx | >/dev/null 
 if [ $? != 0 ]
 then
 	echo "I need to install nginx. Is that ok? Y/n"
@@ -31,37 +31,8 @@ fi
 echo ""
 echo ""
 
-if [ -d /etc/nginx/sites-available ]
-then
-	echo "I need to write to an nginx directory that doesn't exist yet:"
-	echo "/etc/nginx/sites-available"
-	echo ""
-	echo "Would you like me to make the directory?"
-	read RESPONSE
-	if [ $RESPONSE != "Y" ]
-	then
-		echo "Aww, to work my magic, I need the directory /etc/nginx/sites-available to exist."
-		exit 1
-	else
-		echo "Ok! Creating your nginx default file..."
-		mkdir -p /etc/nginx/sites-available
-		if [ $? != 0 ]
-                then
-                        echo "Looks like there was a problem with creating /etc/nginx/sites-available directory."
-                        exit 1
-                else
-                        echo "Your nginx /etc/nginx/sites-available directory was successfully created!"
-                fi
-	fi
-else
-	echo ""
-	echo "Nice, you've already got an nginx /etc/nginx/sites-available directory!"
-fi
 
-echo ""
-echo ""
-
-npm list -g pm2
+npm list -g pm2 | >/dev/null 
 if [ $? != 0 ]
 then
         echo "I need to install pm2. Is that ok? Y/n"
@@ -91,6 +62,7 @@ echo ""
 
 echo "Ok! Dependencies are in order. Let's make a new site!"
 echo ""
+
 
 echo "Please enter your nginx server_name"
 read SERVERNAME
