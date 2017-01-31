@@ -75,7 +75,7 @@ echo "Ok, port $PORT on $SERVERNAME."
 echo ""
 
 echo "What would you like to name the app?"
-read APPDIR
+read APPNAME
 if [ -f /etc/nginx/sites-available/"$APPNAME" ]
 then
 	echo "That app nginx file already exits. Exiting to prevent overwrite. Please try again."
